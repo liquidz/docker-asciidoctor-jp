@@ -1,0 +1,20 @@
+= docker-asciidoctor-jp
+
+link:https://hub.docker.com/r/asciidoctor/docker-asciidoctor/[Asciidoctor docker container] including link:http://vlgothic.dicey.org/[VL Gothic] font.
+
+== Usage
+
+.Run container
+----
+docker run -it -v $(pwd):/documents uochan/docker-asciidoctor-jp
+----
+
+.Generate PDF
+----
+asciidoctor-pdf foo.adoc
+----
+
+.With diagrams
+----
+asciidoctor-pdf -r asciidoctor-diagram foo.adoc
+----
