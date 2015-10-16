@@ -1,20 +1,32 @@
 = docker-asciidoctor-jp
 
-link:https://hub.docker.com/r/asciidoctor/docker-asciidoctor/[Asciidoctor docker container] including link:http://vlgothic.dicey.org/[VL Gothic] font.
+link:https://hub.docker.com/r/asciidoctor/docker-asciidoctor/[Asciidoctor docker container] で日本語が使えるようカスタマイズしたものです。
 
-== Usage
+オリジナルに加えて以下がインストールされています。
 
-.Run container
+* link:http://vlgothic.dicey.org/[VL Gothic]
+* link:https://github.com/chloerei/asciidoctor-pdf-cjk-kai_gen_gothic[asciidoctor-pdf-cjk-kai_gen_gothic]
+* link:https://github.com/asciidoctor/asciidoctor-stylesheet-factory/[asciidoctor-stylesheet-factory]
+** スタイルシートは `/stylesheets` 配下にインストールされています
+
+== 使い方
+
+.コンテナを起動
 ----
-docker run -it -v $(pwd):/documents uochan/docker-asciidoctor-jp
+docker run --rm -it -v $(pwd):/documents uochan/docker-asciidoctor-jp
 ----
 
-.Generate PDF
+.PDFの生成
 ----
-asciidoctor-pdf foo.adoc
+asciidoctor-pdf -r asciidoctor-pdf-cjk-kai_gen_gothic -a pdf-style=KaiGenGothicJP foo.adoc
 ----
 
-.With diagrams
+.図形を含むPDFの生成
 ----
-asciidoctor-pdf -r asciidoctor-diagram foo.adoc
+asciidoctor-pdf -r asciidoctor-diagram -r asciidoctor-pdf-cjk-kai_gen_gothic -a pdf-style=KaiGenGothicJP foo.adoc
+----
+
+.HTMLの生成
+----
+asciidoctor -a source-highlighter=highlightjs -a stylesheet=/stylesheets/github.css foo.adoc
 ----
